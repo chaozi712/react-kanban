@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router';
-import { Board } from '@/pages/Board';
+import { BoardPage } from '@/pages/Board';
 
 const routes = [
   {
@@ -8,7 +8,7 @@ const routes = [
   },
   {
     path: '/board',
-    element: <Board />
+    element: <BoardPage />
   }
 ];
 
