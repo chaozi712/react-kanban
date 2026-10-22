@@ -1,17 +1,25 @@
 import { useKanban } from '@/stores/useKanban';
 import { Task } from './Task';
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, type DragEndEvent } from '@dnd-kit/core';
 import { KanbanGroup } from './KanbanGroup';
 import { Button } from '@/components/ui/button';
 
 export const Board = () => {
-  const { boards, updateBoard } = useKanban();
+  const { boards, updateBoard, moveTask } = useKanban();
+  const handleDragEnd = ({ active, over }: DragEndEvent) => {
+    console.log('🚀 ~ Board ~ active:', active);
+    console.log('🚀 ~ Board ~ over:', over);
+
+    const { id } = active;
+    const [groupId, taskId] = id.toString().split('-');
+    if (over) moveTask(taskId, groupId, over.id.toString());
+  };
   return (
-    <DndContext>
+    <DndContext onDragEnd={handleDragEnd}>
       <div className="flex flex-row">
         {boards.map((board) => (
           <div key={board.groupId} className="flex flex-row">
-            <KanbanGroup title={board.groupName}>
+            <KanbanGroup groupId={board.groupId} title={board.groupName}>
               <div className="kanban-group p-2 mr-1 w-65 rounded-2xl bg-blue-100">
                 <div className="flex flex-col">
                   <div className="w-fit rounded-full bg-blue-200 px-1 mb-2">

@@ -6,7 +6,6 @@ export const BoardPage = () => {
   const { boards, createBoard } = useKanban();
   return (
     <div>
-      <Board />
       <Button
         variant="default"
         onClick={() =>
@@ -19,6 +18,7 @@ export const BoardPage = () => {
       >
         Create Group
       </Button>
+      <Board />
     </div>
   );
 };
