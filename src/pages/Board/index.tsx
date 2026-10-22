@@ -10,10 +10,14 @@ export const BoardPage = () => {
       <Button
         variant="default"
         onClick={() =>
-          createBoard({ id: `${boards.length}`, name: 'New Board' })
+          createBoard({
+            groupId: `${boards.length}`,
+            groupName: 'New Board',
+            tasks: []
+          })
         }
       >
-        Create
+        Create Group
       </Button>
     </div>
   );

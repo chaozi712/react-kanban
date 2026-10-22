@@ -1,11 +1,31 @@
+import { useDraggable } from '@dnd-kit/core';
 interface TaskProps {
+  id: number | string;
   title: string;
 }
 
 export const Task = (props: TaskProps) => {
-  const { title } = props;
+  const { id, title } = props;
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+    data: {
+      type: 'task'
+    }
+  });
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      }
+    : undefined;
   return (
-    <div key={title} className="p-2 mb-1 border-gray-100 rounded-md bg-white">
+    <div
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      key={title}
+      style={style}
+      className="p-2 mb-1 border-gray-100 rounded-md bg-white"
+    >
       {title}
     </div>
   );
